@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movements.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nettalha <nettalha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 22:40:13 by okamili           #+#    #+#             */
-/*   Updated: 2023/09/19 03:51:28 by nettalha         ###   ########.fr       */
+/*   Updated: 2023/09/20 00:40:41 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,11 @@ static void	move_up(t_data *data)
 
 float	normalize_ang(float angle)
 {
-    angle = fmod(angle, 360);
-    if (angle < 0)
-        angle += 360;
-    return angle;
+	angle = fmod(angle, 360);
+	if (angle < 0)
+		angle += 360;
+	return (angle);
 }
-
 
 void	handle_keys(t_data *data)
 {

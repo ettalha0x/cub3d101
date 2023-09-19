@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init_projection.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nettalha <nettalha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 22:06:13 by okamili           #+#    #+#             */
-/*   Updated: 2023/09/18 17:22:59 by nettalha         ###   ########.fr       */
+/*   Updated: 2023/09/20 00:41:42 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "graphics.h"
 
-static void moose(double xpos, double ypos, void* param)
+static void	mouse_rotation(double xpos, double ypos, void *param)
 {
 	t_data			*data;
 	static float	start;
@@ -25,7 +25,7 @@ static void moose(double xpos, double ypos, void* param)
 		start = data->player_ang;
 		lock = 1;
 	}
-	data->player_ang = 360 - (start + ((xpos * 720)/1150));
+	data->player_ang = 360 - (start + ((xpos * 720) / WIDTH));
 }
 
 static void	iterate(void *param)
@@ -34,8 +34,7 @@ static void	iterate(void *param)
 
 	data = (t_data *)param;
 	handle_keys(data);
-	// prejection_3d(data);
-	mlx_cursor_hook(data->mlx, &moose, data);
+	mlx_cursor_hook(data->mlx, &mouse_rotation, data);
 	draw_minimap(data);
 }
 
