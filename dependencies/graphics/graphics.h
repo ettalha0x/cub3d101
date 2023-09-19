@@ -6,7 +6,7 @@
 /*   By: nettalha <nettalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:52:55 by okamili           #+#    #+#             */
-/*   Updated: 2023/09/19 04:55:39 by nettalha         ###   ########.fr       */
+/*   Updated: 2023/09/19 05:07:36 by nettalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define WIDTH 1300
 # define HEIGHT 800
 # define BLOCK_SIZE 50
-# define MINIMAP_SCALE 0.1
+# define MINIMAP_SCALE 6
 # define ROTATION_SPEED 6
 # define M_WALL -1
 # define M_FLOR -1836517121

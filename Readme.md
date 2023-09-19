@@ -3,6 +3,8 @@
 This project is written in c using mini-libx Library, This old library has a little builtin-funcs.
 
 ## Project Roadmap
+### Leaks
+- [ ] refining_spaces function has a heap-buffer-overflow.
 ### Parsing
 - [x]   check if the user provided a map.
 - [x]   check map is a .cub file.
@@ -35,9 +37,9 @@ This project is written in c using mini-libx Library, This old library has a lit
 - [ ]   Fixing wall distortion.
 - [X]   replacing ceiling and floor with their dedicated color.
 - [X]   projecting textures on 3d walls.
-- [ ]   write description for each functions in .h file.
-- [ ]   check norminette.
-- [ ]	check valgrind.
+- [X]   write description for each functions in .h file.
+- [X]   check norminette.
+- [X]	check valgrind.
 ### Error Testing
 - [X]   no map provided.
 - [X]   empty map file.
