@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_minimap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nettalha <nettalha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:52:50 by okamili           #+#    #+#             */
-/*   Updated: 2023/09/19 04:40:53 by nettalha         ###   ########.fr       */
+/*   Updated: 2023/09/19 22:38:59 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	draw_vue_angle(t_data *data)
 	while (++i <= WIDTH)
 	{
 		ray = get_shortest_ray(data, view_angle);
+		ray.distance = ray.distance * cos((view_angle - data->player_ang) * (M_PI / 180));
 		draw_line(data, ray, view_angle);
 		draw_3d_wall(data, ray, i);
 		view_angle += step;
