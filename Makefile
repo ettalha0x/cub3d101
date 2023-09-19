@@ -1,5 +1,5 @@
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror -g
+CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address
 MLXFLAGS	=	 dependencies/packages/MLX/libmlx42.a -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 MLXLinux	=	 dependencies/packages/MLX/libmlx42_linux.a -Iinclude -ldl -lglfw -pthread -lm
 RM			=	rm -rf
@@ -22,6 +22,7 @@ PARSING		=	dependencies/parsing/free2d.c dependencies/parsing/print_err.c\
 GRAPHICS	=	dependencies/graphics/init_game.c dependencies/graphics/draw_minimap.c\
 				dependencies/graphics/player_movements.c dependencies/graphics/3d_projection.c\
 				dependencies/graphics/init_projection.c\
+				dependencies/graphics/get_intersection/get_intersection.c\
 				dependencies/graphics/get_intersection/get_horz_intersection.c\
 				dependencies/graphics/get_intersection/get_vert_intersection.c
 

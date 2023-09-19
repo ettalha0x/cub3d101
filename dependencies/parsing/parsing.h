@@ -6,7 +6,7 @@
 /*   By: nettalha <nettalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 14:35:30 by okamili           #+#    #+#             */
-/*   Updated: 2023/09/18 17:26:31 by nettalha         ###   ########.fr       */
+/*   Updated: 2023/09/18 23:54:14 by nettalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ typedef struct meta_data
 
 	int				floor;
 	int				ceiling;
-	float			vue_angle;
 }	t_data;
 
 /**

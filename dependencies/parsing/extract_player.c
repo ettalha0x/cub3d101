@@ -6,7 +6,7 @@
 /*   By: nettalha <nettalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 08:05:36 by okamili           #+#    #+#             */
-/*   Updated: 2023/09/17 20:47:15 by nettalha         ###   ########.fr       */
+/*   Updated: 2023/09/19 04:30:10 by nettalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void	set_player_data(t_data *data, int row, int colm)
 		data->player->x = colm + 0.15;
 		data->player->y = row + 0.15;
 		data->player_ang = player_angle(data->map[row][colm]);
+		data->map[row][colm] = '0';
 		return ;
 	}
 	print_err("%EMultiple Players Detected.");

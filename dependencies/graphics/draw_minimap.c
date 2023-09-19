@@ -6,13 +6,13 @@
 /*   By: nettalha <nettalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:52:50 by okamili           #+#    #+#             */
-/*   Updated: 2023/09/18 17:39:59 by nettalha         ###   ########.fr       */
+/*   Updated: 2023/09/19 04:40:53 by nettalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "graphics.h"
 
-static void	draw_block(mlx_image_t *canvas, double point[2], long color)
+void	draw_block(mlx_image_t *canvas, double point[2], long color)
 {
 	int			col;
 	int			row;
@@ -27,54 +27,73 @@ static void	draw_block(mlx_image_t *canvas, double point[2], long color)
 		while (++col < BLOCK_SIZE)
 		{
 			if (!col || !row)
-				mlx_put_pixel(canvas, (location.x + col),
-					(location.y + row), 841372671);
+			{
+				if ((location.x + col) / MINIMAP_SCALE > 0 && (location.x + col) / MINIMAP_SCALE < WIDTH
+					&& (location.y + row) / MINIMAP_SCALE > 0 && (location.y + row) / MINIMAP_SCALE < HEIGHT)
+				mlx_put_pixel(canvas, (location.x + col) / MINIMAP_SCALE, (location.y + row) / MINIMAP_SCALE, 841372671);
+			}
 			else
-				mlx_put_pixel(canvas, (location.x + col),
-					(location.y + row), color);
+			{
+				if ((location.x + col) / MINIMAP_SCALE > 0 && (location.x + col) / MINIMAP_SCALE < WIDTH
+					&& (location.y + row) / MINIMAP_SCALE > 0 && (location.y + row) / MINIMAP_SCALE < HEIGHT)
+				mlx_put_pixel(canvas, (location.x + col) / MINIMAP_SCALE, (location.y + row) / MINIMAP_SCALE, color);
+			}
 		}
 	}
 }
 
-static void	draw_line(t_data *data, float angle)
+void	draw_line(t_data *data, t_ray ray, float angle)
 {
-	float			step;
-	t_coords	plyr;
-	t_coords	dist;
+	float		step;
+	int			i;
+	t_coords	p1;
+	t_coords	p2;
+	t_coords	d;
 
-	plyr.x = data->player->x * BLOCK_SIZE;
-	plyr.y = data->player->y * BLOCK_SIZE;
-	dist.x = cos(angle * (M_PI / 180)) * (BLOCK_SIZE * data->map_w);
-	dist.y = -sin(angle * (M_PI / 180)) * (BLOCK_SIZE * data->map_w);
-	step = fabs(dist.y);
-	if (fabs(dist.x) > fabs(dist.y))
-		step = fabs(dist.x);
-	while (true)
+	p1.x = data->player->x * BLOCK_SIZE;
+	p1.y = data->player->y * BLOCK_SIZE;
+	(void)angle;
+	p2.x = ray.x;
+	p2.y = ray.y;
+	d.x = p2.x - p1.x;
+	d.y = p2.y - p1.y;
+	step = fabs(d.y);
+	if (fabs(d.x) > fabs(d.y))
+		step = fabs(d.x);
+	i = -1;
+	while (++i < step && step < INT_MAX)
 	{
-		 if(((plyr.y/BLOCK_SIZE) > 0 && (plyr.x/BLOCK_SIZE) > 0
-			&& data->map[(int)(plyr.y/BLOCK_SIZE)][(int)(plyr.x/BLOCK_SIZE)] == '1')
-			|| data->map[(int)(plyr.y/BLOCK_SIZE)][(int)(plyr.x/BLOCK_SIZE)] == ' ')
-			break;
-        plyr.x += (dist.x / step);
-        plyr.y += (dist.y / step);
-		if (data->map[(int)((plyr.y + dist.y / step) / BLOCK_SIZE)][(int)(plyr.x / BLOCK_SIZE)] == '1'
-			&& data->map[(int)(plyr.y / BLOCK_SIZE)][(int)((plyr.x + dist.x / step) / BLOCK_SIZE)] == '1')
-			break ;
-		mlx_put_pixel(data->minimap_img, plyr.x, plyr.y, M_RAYS);
+		if ((p1.x / MINIMAP_SCALE >= 0 && p1.x / MINIMAP_SCALE < WIDTH)
+		&& (p1.y / MINIMAP_SCALE >= 0 && p1.y / MINIMAP_SCALE < HEIGHT))
+			mlx_put_pixel(data->minimap_img, p1.x / MINIMAP_SCALE, p1.y / MINIMAP_SCALE, M_RAYS);
+		p1.x += (d.x) / step;
+		p1.y += (d.y) / step;
 	}
 }
 
 void	draw_vue_angle(t_data *data)
 {
-	data->vue_angle = (int)(data->player_ang - 30);
-	while (data->vue_angle <= data->player_ang + 30)
+	t_ray		ray;
+	float		view_angle;
+	float		step;
+	int			i;
+	
+	view_angle = data->player_ang - 30;
+	step = (60.0 / WIDTH);
+	view_angle = normalize_ang(view_angle);
+	draw_SkyAndFloor(data);
+	i = -1;
+	while (++i <= WIDTH)
 	{
-		draw_line(data, data->vue_angle);
-		data->vue_angle += 0.1;
+		ray = get_shortest_ray(data, view_angle);
+		draw_line(data, ray, view_angle);
+		draw_3d_wall(data, ray, i);
+		view_angle += step;
+		view_angle = normalize_ang(view_angle);
 	}
 }
 
-static void	draw_player(t_data *data)
+void	draw_player(t_data *data)
 {
 	int			ray;
 	t_coords	point;
@@ -90,12 +109,11 @@ static void	draw_player(t_data *data)
 		while (++point.x <= ray)
 		{
 			if (pow(point.x, 2) + pow(point.y, 2) <= pow(ray, 2)
-				&& (player.x + point.y) > 0 && (player.x + point.y) < data->map_w * BLOCK_SIZE
-				&& (player.y + point.x) > 0 && (player.y + point.x) < data->map_h * BLOCK_SIZE)
-				mlx_put_pixel(data->minimap_img, (player.x + point.x), (player.y + point.y), M_PLYR);
+				&& (player.x + point.y) / MINIMAP_SCALE > 0 && (player.x + point.y) / MINIMAP_SCALE < WIDTH
+				&& (player.y + point.x) / MINIMAP_SCALE > 0 && (player.y + point.x) / MINIMAP_SCALE < HEIGHT)
+				mlx_put_pixel(data->minimap_img, (player.x + point.x) / MINIMAP_SCALE, (player.y + point.y) / MINIMAP_SCALE, M_PLYR);
 		}
 	}
-	draw_vue_angle(data);
 }
 
 void	draw_minimap(t_data *data)
@@ -118,4 +136,5 @@ void	draw_minimap(t_data *data)
 		}
 	}
 	draw_player(data);
+	draw_vue_angle(data);
 }

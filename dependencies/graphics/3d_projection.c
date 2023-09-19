@@ -6,7 +6,7 @@
 /*   By: nettalha <nettalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 20:50:12 by okamili           #+#    #+#             */
-/*   Updated: 2023/09/18 17:38:51 by nettalha         ###   ########.fr       */
+/*   Updated: 2023/09/19 04:08:21 by nettalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,55 +17,55 @@ unsigned int get_rgba(unsigned int r, unsigned int g, unsigned int b, unsigned i
     return (r << 24 | g << 16 | b << 8 | a);
 }
 
-int	isRayHorizontal(t_ray ray)
-{
-    float nearestX = ceilf(ray.x / 50) * 50;
+// int	isRayHorizontal(t_ray ray)
+// {
+//     float nearestX = ceilf(ray.x / 50) * 50;
 
-    float nearestY = ceilf(ray.y / 50) * 50;
+//     float nearestY = ceilf(ray.y / 50) * 50;
 
-    if (fabs(ray.x - nearestX) <= 1.0)
-        ray.x = nearestX;
+//     if (fabs(ray.x - nearestX) <= 1.0)
+//         ray.x = nearestX;
 
-    if (fabs(ray.y - nearestY) <= 1.0)
-        ray.y = nearestY;
+//     if (fabs(ray.y - nearestY) <= 1.0)
+//         ray.y = nearestY;
 
-    if ((int)ray.y % 50 == 0)
-        return 1;
-    return 0;
-}
+//     if ((int)ray.y % 50 == 0)
+//         return 1;
+//     return 0;
+// }
 
-static t_ray	get_ray_distance(t_data *data, t_coords p1, t_coords p2)
-{
-	int			i;
-	float		step;
-	t_coords	d;
-	t_ray		ray;
+// static t_ray	get_ray_distance(t_data *data, t_coords p1, t_coords p2)
+// {
+// 	int			i;
+// 	float		step;
+// 	t_coords	d;
+// 	t_ray		ray;
 
-	i = -1;
-	d.x = p2.x - p1.x;
-	d.y = p2.y - p1.y;
-	if (fabs(d.x) > fabs(d.y)) 
-		step = fabs(d.x);
-	else 
-    	step = fabs(d.y);
-	while(++i <= step)
-	{
-	   if(((p1.y/BLOCK_SIZE) > 0 && (p1.x/BLOCK_SIZE) > 0
-			&& data->map[(int)(p1.y/BLOCK_SIZE)][(int)(p1.x/BLOCK_SIZE)] == '1')
-			|| data->map[(int)(p1.y/BLOCK_SIZE)][(int)(p1.x/BLOCK_SIZE)] == ' ')
-			break;
-        p1.x += (d.x / step);
-        p1.y += (d.y / step);
-		if ((data->map[(int)((p1.y + d.y / step)/BLOCK_SIZE)][(int)(p1.x/BLOCK_SIZE)] == '1'
-			&& data->map[(int)(p1.y/BLOCK_SIZE)][(int)((p1.x + d.x / step)/BLOCK_SIZE)] == '1'))
-			break;
-    }
-	ray.x = p1.x;
-	ray.y = p1.y;
-	ray.is_horz = isRayHorizontal(ray);
-	ray.distance = sqrt(pow(p1.x - (data->player->x * BLOCK_SIZE), 2) + pow(p1.y - (data->player->y * BLOCK_SIZE), 2));
-	return (ray);
-}
+// 	i = -1;
+// 	d.x = p2.x - p1.x;
+// 	d.y = p2.y - p1.y;
+// 	if (fabs(d.x) > fabs(d.y)) 
+// 		step = fabs(d.x);
+// 	else 
+//     	step = fabs(d.y);
+// 	while(++i <= step)
+// 	{
+// 	   if(((p1.y/BLOCK_SIZE) > 0 && (p1.x/BLOCK_SIZE) > 0
+// 			&& data->map[(int)(p1.y/BLOCK_SIZE)][(int)(p1.x/BLOCK_SIZE)] == '1')
+// 			|| data->map[(int)(p1.y/BLOCK_SIZE)][(int)(p1.x/BLOCK_SIZE)] == ' ')
+// 			break;
+//         p1.x += (d.x / step);
+//         p1.y += (d.y / step);
+// 		if ((data->map[(int)((p1.y + d.y / step)/BLOCK_SIZE)][(int)(p1.x/BLOCK_SIZE)] == '1'
+// 			&& data->map[(int)(p1.y/BLOCK_SIZE)][(int)((p1.x + d.x / step)/BLOCK_SIZE)] == '1'))
+// 			break;
+//     }
+// 	ray.x = p1.x;
+// 	ray.y = p1.y;
+// 	ray.is_horz = isRayHorizontal(ray);
+// 	ray.distance = sqrt(pow(p1.x - (data->player->x * BLOCK_SIZE), 2) + pow(p1.y - (data->player->y * BLOCK_SIZE), 2));
+// 	return (ray);
+// }
 
 
 void	get_textures(t_data	*data)
@@ -112,7 +112,7 @@ void	draw_textures(t_data *data, t_coords img, t_coords tex, float height, mlx_t
     }
 }
 
-static void draw_columns(t_data *data, t_coords p, float height, t_ray ray)
+void draw_columns(t_data *data, t_coords p, float height, t_ray ray)
 {
 	t_coords		img;
 	t_coords		tex;
@@ -140,34 +140,28 @@ static void draw_columns(t_data *data, t_coords p, float height, t_ray ray)
 	draw_textures(data, img, tex, height, texture);
 }
 
-static void	draw_3d_wall(t_data *data, t_ray ray, float i)
+void	draw_3d_wall(t_data *data, t_ray ray, float i)
 {
 	t_coords	p;
-	float		heigth;
-	
-	heigth = data->map_h * BLOCK_SIZE;
+
 	p.x = i;
-	p.y = ((heigth / 2) - (((heigth / 2) * BLOCK_SIZE) / ray.distance));
-	draw_columns(data, p, heigth - (p.y * 2), ray);
+	p.y = ((HEIGHT / 2) - (((HEIGHT / 2) * 50) / ray.distance));
+	draw_columns(data, p, HEIGHT - (p.y * 2), ray);
 }
 
 
-static void draw_SkyAndFloor(t_data *data)
+void draw_SkyAndFloor(t_data *data)
 {
 	float	i;
 	float	j;
-	float	width;
-	float	heigth;
-
-	width = data->map_w * BLOCK_SIZE;
-	heigth = data->map_h * BLOCK_SIZE;
+	
 	i = -1;
-    while (++i < heigth)
+    while (++i < HEIGHT)
     {
 		j = -1;
-        while (++j < width)
+        while (++j < WIDTH)
         {
-			if(i > heigth / 2)
+			if(i > HEIGHT / 2)
             	mlx_put_pixel(data->game_img, j, i, data->floor);
 			else
 				mlx_put_pixel(data->game_img, j, i, data->ceiling);
@@ -175,32 +169,32 @@ static void draw_SkyAndFloor(t_data *data)
     }
 }
 
-void	prejection_3d(t_data *data)
-{
-	int			i;
-	t_ray		ray;
-	t_coords	p1;
-	t_coords	p2;
-	float		width;
+// void	prejection_3d(t_data *data)
+// {
+// 	int			i;
+// 	t_ray		ray;
+// 	t_coords	p1;
+// 	t_coords	p2;
+// 	float		width;
 
-	width = data->map_w * BLOCK_SIZE;
-	i = 0;
-	data->vue_angle = (data->player_ang + 30) * (M_PI / 180);
-	draw_SkyAndFloor(data);
-	while (i < width)
-	{
-		p1.x = data->player->x * BLOCK_SIZE;
-		p1.y = data->player->y * BLOCK_SIZE;
-		p2.x = p1.x + cos(data->vue_angle) * width;	
-		p2.y = p1.y - sin(data->vue_angle) * width;
-		ray = get_ray_distance(data, p1, p2);
-		ray.distance = ray.distance * cos(data->vue_angle - (data->player_ang * (M_PI / 180)));
-		ray.is_facing_down = (data->vue_angle > 0 && data->vue_angle < 180 * (M_PI / 180));
-		ray.is_facing_up = !ray.is_facing_down;
-		ray.is_facing_right = (data->vue_angle < 90 * (M_PI / 180)|| data->vue_angle > 270 * (M_PI / 180));
-		ray.is_facing_left = !ray.is_facing_right;
-		draw_3d_wall(data, ray, i);
-		data->vue_angle -= ((60  * (M_PI / 180)) / width);
-		i++;
-	}
-}
+// 	width = data->map_w * BLOCK_SIZE;
+// 	i = 0;
+// 	data->vue_angle = (data->player_ang + 30) * (M_PI / 180);
+// 	draw_SkyAndFloor(data);
+// 	while (i < width)
+// 	{
+// 		p1.x = data->player->x * BLOCK_SIZE;
+// 		p1.y = data->player->y * BLOCK_SIZE;
+// 		p2.x = p1.x + cos(data->vue_angle) * width;	
+// 		p2.y = p1.y - sin(data->vue_angle) * width;
+// 		ray = get_ray_distance(data, p1, p2);
+// 		ray.distance = ray.distance * cos(data->vue_angle - (data->player_ang * (M_PI / 180)));
+// 		ray.is_facing_down = (data->vue_angle > 0 && data->vue_angle < 180 * (M_PI / 180));
+// 		ray.is_facing_up = !ray.is_facing_down;
+// 		ray.is_facing_right = (data->vue_angle < 90 * (M_PI / 180)|| data->vue_angle > 270 * (M_PI / 180));
+// 		ray.is_facing_left = !ray.is_facing_right;
+// 		draw_3d_wall(data, ray, i);
+// 		data->vue_angle -= ((60  * (M_PI / 180)) / width);
+// 		i++;
+// 	}
+// }
