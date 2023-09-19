@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_vert_intersection.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nettalha <nettalha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:59:38 by nettalha          #+#    #+#             */
-/*   Updated: 2023/09/19 04:34:57 by nettalha         ###   ########.fr       */
+/*   Updated: 2023/09/19 19:38:54 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_ray get_vert_intersection(t_data *data, double angle)
 			x_to_check = ray.x;
 			grid_x = floor(x_to_check / BLOCK_SIZE);
 			grid_y = floor(y_to_check / BLOCK_SIZE);
-			if (grid_x < 0 || grid_x >= data->map_w || grid_y < 0 || grid_y >= data->map_h)
+			if (grid_y < 0 || grid_y >= data->map_h || grid_x < 0 || grid_x >= (int)ft_strlen(data->map[grid_y]))
 				break;
 			if (data->map[grid_y][grid_x] == '1')
 			{

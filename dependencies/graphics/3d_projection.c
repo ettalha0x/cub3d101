@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3d_projection.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nettalha <nettalha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 20:50:12 by okamili           #+#    #+#             */
-/*   Updated: 2023/09/19 04:08:21 by nettalha         ###   ########.fr       */
+/*   Updated: 2023/09/19 09:08:43 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,14 +97,14 @@ void	draw_textures(t_data *data, t_coords img, t_coords tex, float height, mlx_t
     }
     if (y2 < 0)
         y2 = 0;
-    while (y2 < (int)data->game_img->height && y < height)
+    while (y2 < (int)data->game_img->height - 1 && y < height - 1)
     {
         tex.y = y * ((float) texture->height / (float) height);
         if (tex.y < texture->height
             && (((int) tex.y * texture->width) + x) < texture->width * texture->height)
         {
             pixelx = &texture->pixels[(((int) tex.y * texture->width) + x) * texture->bytes_per_pixel];
-            pixeli = &data->game_img->pixels[((y2 * data->game_img->width) + x2) * texture->bytes_per_pixel];
+            pixeli = &data->game_img->pixels[((y2 * (data->game_img->width)) + x2) * texture->bytes_per_pixel];
             ft_memmove(pixeli, pixelx, texture->bytes_per_pixel);
         }
         y2++;
