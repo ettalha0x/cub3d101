@@ -6,7 +6,7 @@
 /*   By: nettalha <nettalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:52:55 by okamili           #+#    #+#             */
-/*   Updated: 2023/09/20 12:30:56 by nettalha         ###   ########.fr       */
+/*   Updated: 2023/09/20 22:37:47 by nettalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,53 @@ void	draw_sky_floor(t_data *data);
  * @param color RGBA value representing the block's color.
  */
 void	draw_block(mlx_image_t *canvas, double point[2], long color);
-
+/**
+ * @brief Render a line on the MLX canvas connecting two points.
+ * 
+ * @param data Pointer to a t_data struct.
+ * @param ray Pointer to a struct containing ray data.
+ */
 void	draw_line(t_data *data, t_ray ray);
+/**
+ * @brief Render a 3D projection of a wall onto the MLX canvas.
+ * 
+ * @param data Pointer to a t_data struct.
+ * @param ray Pointer to a struct containing ray data.
+ * @param i The x-coordinate of the column to be rendered.
+ */
 void	draw_3d_wall(t_data *data, t_ray ray, float i);
 void	draw_columns(t_data *data, t_coords p, float height, t_ray ray);
+/**
+ * @brief Render textures on the walls in the game.
+ * 
+ * @param data Pointer to a t_data struct.
+ * @param twin Pointer to a struct containing image and texture coordinates.
+ * @param h The height of the wall to be rendered.
+ * @param tex Pointer to a struct containing texture data.
+ */
 void	draw_text(t_data *data, t_two_coords twin, float h, mlx_texture_t *tex);
-
+/**
+ * @brief Compare the horizontal and vertical distances to find the shortest ray.
+ * 
+ * @param data Pointer to a t_data struct.
+ * @param angle The angle of the ray.
+ * @return t_ray The shortest ray.
+ */
 t_ray	get_shortest_ray(t_data *data, float angle);
+/**
+ * @brief Extract horizontal ray intersection data.
+ * 
+ * @param data Pointer to a t_data struct.
+ * @param angle The angle of the ray.
+ * @return Pointer to a t_ray struct containing ray data.
+ */
 t_ray	get_horz_intersection(t_data *data, double angle);
+/**
+ * @brief compare both the horizontal and vertical distances
+ * 
+ * @param data Pointer to a t_data struct.
+ * @param angle The Ray angle value.
+ * @return t_ray The shortest ray.
+*/
 t_ray	get_vert_intersection(t_data *data, double angle);
 #endif
