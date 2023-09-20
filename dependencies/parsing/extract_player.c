@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extract_player.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: nettalha <nettalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 08:05:36 by okamili           #+#    #+#             */
-/*   Updated: 2023/09/20 04:04:55 by okamili          ###   ########.fr       */
+/*   Updated: 2023/09/20 23:47:39 by nettalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static int	player_angle(char direction)
 {
 	if (direction == 'N')
-		return (90);
-	if (direction == 'S')
 		return (270);
+	if (direction == 'S')
+		return (90);
 	if (direction == 'E')
 		return (0);
 	if (direction == 'W')
