@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:52:50 by okamili           #+#    #+#             */
-/*   Updated: 2023/09/20 04:02:38 by okamili          ###   ########.fr       */
+/*   Updated: 2023/09/20 06:26:08 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	draw_vue_angle(t_data *data)
 	view_angle = data->player_ang - 30;
 	step = (60.0 / WIDTH);
 	view_angle = normalize_ang(view_angle);
-	draw_SkyAndFloor(data);
+	draw_sky_floor(data);
 	i = -1;
 	while (++i <= WIDTH)
 	{

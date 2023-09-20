@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 20:50:12 by okamili           #+#    #+#             */
-/*   Updated: 2023/09/20 03:53:05 by okamili          ###   ########.fr       */
+/*   Updated: 2023/09/20 06:26:20 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	draw_3d_wall(t_data *data, t_ray ray, float i)
 	draw_columns(data, p, HEIGHT - (p.y * 2), ray);
 }
 
-void	draw_SkyAndFloor(t_data *data)
+void	draw_sky_floor(t_data *data)
 {
 	float	i;
 	float	j;
