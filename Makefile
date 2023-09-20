@@ -1,5 +1,5 @@
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror -g -O3 -fsanitize=address
+CFLAGS		=	-Wall -Wextra -Werror -O3
 MLXFLAGS	=	 dependencies/packages/MLX/libmlx42.a -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 RM			=	rm -rf
 NAME		=	cub3d
