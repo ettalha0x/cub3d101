@@ -4,7 +4,7 @@ This project is written in c using mini-libx Library, This old library has a lit
 
 ## Project Roadmap
 ### Leaks
-- [ ] refining_spaces function has a heap-buffer-overflow.
+- [X] refining_spaces function has a heap-buffer-overflow.
 ### Parsing
 - [x]   check if the user provided a map.
 - [x]   check map is a .cub file.
@@ -34,12 +34,12 @@ This project is written in c using mini-libx Library, This old library has a lit
 - [X]   draw a direction line (to know where the player is looking).
 - [X]   draw a vue angle by casting rays line by line (60 degree).
 - [X]   3D projection.
-- [ ]   Fixing wall distortion.
+- [X]   Fixing wall distortion.
 - [X]   replacing ceiling and floor with their dedicated color.
 - [X]   projecting textures on 3d walls.
-- [X]   write description for each functions in .h file.
-- [X]   check norminette.
-- [X]	check valgrind.
+- [ ]   write description for each functions in .h file.
+- [ ]   check norminette.
+- [ ]	check valgrind.
 ### Error Testing
 - [X]   no map provided.
 - [X]   empty map file.
