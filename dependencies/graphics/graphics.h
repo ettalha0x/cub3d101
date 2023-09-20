@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:52:55 by okamili           #+#    #+#             */
-/*   Updated: 2023/09/20 06:26:27 by okamili          ###   ########.fr       */
+/*   Updated: 2023/09/20 06:30:20 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_ray	get_shortest_ray(t_data *data, float angle);
 t_ray	get_horz_intersection(t_data *data, double angle);
 t_ray	get_vert_intersection(t_data *data, double angle);
 
-void	get_textures(t_data *data);
 void	draw_line(t_data *data, t_ray ray);
 void	draw_block(mlx_image_t *canvas, double point[2], long color);
 void	draw_3d_wall(t_data *data, t_ray ray, float i);

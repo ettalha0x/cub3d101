@@ -6,25 +6,11 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 20:50:12 by okamili           #+#    #+#             */
-/*   Updated: 2023/09/20 06:26:20 by okamili          ###   ########.fr       */
+/*   Updated: 2023/09/20 06:29:47 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "graphics.h"
-
-void	get_textures(t_data	*data)
-{
-	data->textures[0] = mlx_load_png(data->north_path);
-	data->textures[1] = mlx_load_png(data->south_path);
-	data->textures[2] = mlx_load_png(data->east_path);
-	data->textures[3] = mlx_load_png(data->west_path);
-	if (!data->textures[0] || !data->textures[1]
-		|| !data->textures[2] || !data->textures[3])
-	{
-		print_err("%EError loading textures.");
-		safe_exit(data, 1);
-	}
-}
 
 void	draw_textures(t_data *data, t_coords img, t_coords tex, float height, mlx_texture_t *texture)
 {
