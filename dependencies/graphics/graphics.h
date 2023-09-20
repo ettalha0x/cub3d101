@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphics.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: nettalha <nettalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:52:55 by okamili           #+#    #+#             */
-/*   Updated: 2023/09/20 09:18:45 by okamili          ###   ########.fr       */
+/*   Updated: 2023/09/20 12:30:56 by nettalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	draw_block(mlx_image_t *canvas, double point[2], long color);
 void	draw_line(t_data *data, t_ray ray);
 void	draw_3d_wall(t_data *data, t_ray ray, float i);
 void	draw_columns(t_data *data, t_coords p, float height, t_ray ray);
-void	draw_textures(t_data *data, t_coords img, t_coords tex, float height, mlx_texture_t *texture);
+void	draw_text(t_data *data, t_two_coords twin, float h, mlx_texture_t *tex);
 
 t_ray	get_shortest_ray(t_data *data, float angle);
 t_ray	get_horz_intersection(t_data *data, double angle);

@@ -6,7 +6,7 @@
 /*   By: nettalha <nettalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 14:35:30 by okamili           #+#    #+#             */
-/*   Updated: 2023/09/18 23:54:14 by nettalha         ###   ########.fr       */
+/*   Updated: 2023/09/20 12:47:07 by nettalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,23 @@
 # include "../packages/MLX/minilibx.h"
 # include "../packages/gnl/get_next_line.h"
 
+typedef struct int_coordinates
+{
+	int	x;
+	int	y;
+}	t_int_coords;
+
 typedef struct point_coordinates
 {
 	float	x;
 	float	y;
 }	t_coords;
+
+typedef struct two_point_coordinates
+{
+	t_coords	img;
+	t_coords	tex;
+}	t_two_coords;
 
 typedef struct s_ray
 {

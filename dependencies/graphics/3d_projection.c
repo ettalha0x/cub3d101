@@ -3,63 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   3d_projection.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: nettalha <nettalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 20:50:12 by okamili           #+#    #+#             */
-/*   Updated: 2023/09/20 06:29:47 by okamili          ###   ########.fr       */
+/*   Updated: 2023/09/20 12:44:29 by nettalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "graphics.h"
 
-void	draw_textures(t_data *data, t_coords img, t_coords tex, float height, mlx_texture_t *texture)
+void	init_points(t_int_coords *p1, t_int_coords *p2, t_two_coords *twin)
 {
-	int			x;
-	int			x2;
-	int			y2;
-	uint32_t	y;
-	uint8_t		*pixelx;
-	uint8_t		*pixeli;
+	p1->x = twin->tex.x;
+	p1->y = -1;
+	p2->x = twin->img.x;
+	p2->y = twin->img.y - 1;
+}
 
-	x = tex.x;
-	y = 0;
-	x2 = img.x;
-	y2 = img.y;
-	if (height > data->game_img->height)
-		y = (height - data->game_img->height) / 2;
-	if (y2 < 0)
-		y2 = 0;
-	while (y2 < (int)data->game_img->height - 1 && y < height - 1)
+void	draw_text(t_data *data, t_two_coords twin, float h, mlx_texture_t *tex)
+{
+	t_int_coords	p1;
+	t_int_coords	p2;
+	uint8_t			*px;
+	uint8_t			*pi;
+
+	init_points(&p1, &p2, &twin);
+	if (h > data->game_img->height)
+		p1.y = (h - data->game_img->height) / 2;
+	if (p2.y < 0)
+		p2.y = 0;
+	while (++p2.y < (int)data->game_img->height - 1 && ++p1.y < h - 1)
 	{
-		tex.y = y * ((float) texture->height / (float) height);
-		if (tex.y < texture->height
-			&& (((int) tex.y * texture->width) + x) < texture->width * texture->height)
+		twin.tex.y = p1.y * ((float) tex->height / (float) h);
+		if (twin.tex.y < tex->height
+			&& (twin.tex.y * tex->width + p1.x) < tex->width * tex->height)
 		{
-			pixelx = &texture->pixels[(((int) tex.y * texture->width) + x) * texture->bytes_per_pixel];
-			pixeli = &data->game_img->pixels[((y2 * (data->game_img->width)) + x2) * texture->bytes_per_pixel];
-			ft_memmove(pixeli, pixelx, texture->bytes_per_pixel);
+			px = &tex->pixels
+			[(((int)twin.tex.y * tex->width) + p1.x) * tex->bytes_per_pixel];
+			pi = &data->game_img->pixels
+			[((p2.y * (data->game_img->width)) + p2.x) * tex->bytes_per_pixel];
+			ft_memmove(pi, px, tex->bytes_per_pixel);
 		}
-		y2++;
-		y++;
 	}
 }
 
 void	draw_columns(t_data *data, t_coords p, float height, t_ray ray)
 {
-	t_coords		img;
-	t_coords		tex;
+	t_two_coords	twin;
 	mlx_texture_t	*texture;
 	float			width_ratio;
 
-	img.x = p.x;
-	img.y = p.y;
+	twin.img.x = p.x;
+	twin.img.y = p.y;
 	if (ray.is_horz)
 	{
 		texture = data->textures[0];
 		if (ray.is_facing_up)
 			texture = data->textures[1];
 		width_ratio = (float)((float)texture->width / (float) BLOCK_SIZE);
-		tex.x = fmod(ray.x, BLOCK_SIZE) * (width_ratio);
+		twin.tex.x = fmod(ray.x, BLOCK_SIZE) * (width_ratio);
 	}
 	else
 	{
@@ -67,9 +69,9 @@ void	draw_columns(t_data *data, t_coords p, float height, t_ray ray)
 		if (ray.is_facing_left)
 			texture = data->textures[3];
 		width_ratio = (float)((float)texture->width / (float)BLOCK_SIZE);
-		tex.x = fmod(ray.y, BLOCK_SIZE) * (width_ratio);
+		twin.tex.x = fmod(ray.y, BLOCK_SIZE) * (width_ratio);
 	}
-	draw_textures(data, img, tex, height, texture);
+	draw_text(data, twin, height, texture);
 }
 
 void	draw_3d_wall(t_data *data, t_ray ray, float i)
