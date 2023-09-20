@@ -6,17 +6,44 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:59:38 by nettalha          #+#    #+#             */
-/*   Updated: 2023/09/20 04:00:19 by okamili          ###   ########.fr       */
+/*   Updated: 2023/09/20 06:23:18 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../graphics.h"
 
+static void	get_ray_distance(t_data *data, t_ray *ray, int depth, double angle)
+{
+	int		grid_x;
+	int		grid_y;
+	double	ystep;
+	double	xstep;
+
+	xstep = BLOCK_SIZE;
+	if (ray->is_facing_left)
+		xstep *= -1;
+	ystep = xstep * tan(angle * (M_PI / 180));
+	while (depth > 0 && ray->x >= 0 && ray->x < (data->map_w * BLOCK_SIZE)
+		&&ray->y >= 0 && ray->y < data->map_h * BLOCK_SIZE)
+	{
+		grid_x = floor(ray->x / BLOCK_SIZE);
+		grid_y = floor(ray->y / BLOCK_SIZE);
+		if (grid_y < 0 || grid_y >= data->map_h || grid_x < 0
+			|| grid_x >= (int)ft_strlen(data->map[grid_y])
+			|| data->map[grid_y][grid_x] == '1')
+			break ;
+		else
+		{
+			ray->x += xstep;
+			ray->y += ystep;
+		}
+		depth--;
+	}
+}
+
 t_ray	get_vert_intersection(t_data *data, double angle)
 {
 	t_ray		ray;
-	double		ystep;
-	double		xstep;
 	int			depth;
 	t_coords	temp_player;
 
@@ -35,32 +62,7 @@ t_ray	get_vert_intersection(t_data *data, double angle)
 	if (ray.is_facing_left)
 		ray.x -= 0.0001;
 	ray.y = temp_player.y + (ray.x - temp_player.x) * tan(angle * (M_PI / 180));
-	xstep = BLOCK_SIZE;
-	if (ray.is_facing_left)
-		xstep *= -1;
-	ystep = xstep * tan(angle * (M_PI / 180));
-	double x_to_check;
-	double y_to_check;
-	int grid_x, grid_y;
-	while (depth > 0 && ray.x >= 0 && ray.x < (data->map_w * BLOCK_SIZE)
-		&&ray.y >= 0 && ray.y < data->map_h * BLOCK_SIZE)
-	{
-		y_to_check = ray.y;
-		x_to_check = ray.x;
-		grid_x = floor(x_to_check / BLOCK_SIZE);
-		grid_y = floor(y_to_check / BLOCK_SIZE);
-		if (grid_y < 0 || grid_y >= data->map_h || grid_x < 0
-			|| grid_x >= (int)ft_strlen(data->map[grid_y]))
-			break ;
-		if (data->map[grid_y][grid_x] == '1')
-			break ;
-		else
-		{
-			ray.x += xstep;
-			ray.y += ystep;
-		}
-		depth--;
-	}
+	get_ray_distance(data, &ray, depth, angle);
 	ray.distance = sqrt(pow(ray.x - temp_player.x, 2)
 			+ pow(ray.y - temp_player.y, 2));
 	return (ray);

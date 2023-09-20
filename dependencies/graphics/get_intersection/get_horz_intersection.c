@@ -6,13 +6,13 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:59:27 by nettalha          #+#    #+#             */
-/*   Updated: 2023/09/20 04:55:18 by okamili          ###   ########.fr       */
+/*   Updated: 2023/09/20 06:21:15 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../graphics.h"
 
-void	get_ray_distance(t_data *data, t_ray *ray, int depth, double angle)
+static void	get_ray_distance(t_data *data, t_ray *ray, int depth, double angle)
 {
 	int		grid_x;
 	int		grid_y;
