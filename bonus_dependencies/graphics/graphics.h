@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:52:55 by okamili           #+#    #+#             */
-/*   Updated: 2023/09/20 23:16:27 by okamili          ###   ########.fr       */
+/*   Updated: 2023/09/20 23:22:12 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <math.h>
 # include <stdio.h>
-# include "../parsing/parsing.h"
+# include "../../dependencies/parsing/parsing.h"
 
 # define WIDTH 1300
 # define HEIGHT 800
@@ -35,6 +35,12 @@
  * @param title Title of the game.
  */
 void	init_game(t_data *data, char *title);
+/**
+ * @brief Draw a minimap based on the map data.
+ * 
+ * @param data Pointer to a t_data struct.
+ */
+void	draw_minimap(t_data *data);
 /**
  * @brief Process key actions based on user input.
  * 
@@ -61,6 +67,22 @@ float	normalize_ang(float angle);
  * @param data Pointer to a t_data struct.
  */
 void	draw_sky_floor(t_data *data);
+/**
+ * @brief Draw a block on the MLX canvas at specified
+ * coordinates with the given RGBA color.
+ * 
+ * @param canvas Pointer to the MLX canvas.
+ * @param point Coordinates specifying the block's location.
+ * @param color RGBA value representing the block's color.
+ */
+void	draw_block(mlx_image_t *canvas, double point[2], long color);
+/**
+ * @brief Render a line on the MLX canvas connecting two points.
+ * 
+ * @param data Pointer to a t_data struct.
+ * @param ray Pointer to a struct containing ray data.
+ */
+void	draw_line(t_data *data, t_ray ray);
 /**
  * @brief Render a 3D projection of a wall onto the MLX canvas.
  * 
