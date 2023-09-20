@@ -39,7 +39,7 @@ This project is written in c using mini-libx Library, This old library has a lit
 - [X]   projecting textures on 3d walls.
 - [ ]   write description for each functions in .h file.
 - [ ]   check norminette.
-- [ ]	check valgrind.
+- [X]	check valgrind.
 ### Error Testing
 - [X]   no map provided.
 - [X]   empty map file.
