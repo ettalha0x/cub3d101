@@ -1,7 +1,7 @@
-WE          ./textures/42.png
-SO          ./textures/1337.png
-NO          ./textures/nettalha.png
-EA          ./textures/okamili.png
+WE          ./textures/orange.png
+SO          ./textures/green.png
+NO          ./textures/red.png
+EA          ./textures/purple.png
 
 
 

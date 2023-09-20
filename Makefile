@@ -1,5 +1,5 @@
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS		=	-Wall -Wextra -Werror -g -O3 -fsanitize=address
 MLXFLAGS	=	 dependencies/packages/MLX/libmlx42.a -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 MLXLinux	=	 dependencies/packages/MLX/libmlx42_linux.a -Iinclude -ldl -lglfw -pthread -lm
 RM			=	rm -rf

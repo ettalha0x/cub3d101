@@ -1,10 +1,10 @@
 
 
 
-WE          ./textures/42.png
-SO          ./textures/1337.png
-NO          ./textures/um6p.png
-EA          ./textures/tanger_med.png
+WE          ./textures/red.png
+SO          ./textures/green.png
+NO          ./textures/purple.png
+EA          ./textures/orange.png
 
 
 
