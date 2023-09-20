@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:52:55 by okamili           #+#    #+#             */
-/*   Updated: 2023/09/20 07:03:13 by okamili          ###   ########.fr       */
+/*   Updated: 2023/09/20 09:18:45 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define MINIMAP_SCALE 6
 # define ROTATION_SPEED 6
 # define M_WALL -1
-# define M_FLOR -1836517121
+# define M_FLOR 2006371327
 # define M_PLYR -1
 # define M_RAYS -1777
 
