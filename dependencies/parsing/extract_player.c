@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extract_player.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nettalha <nettalha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 08:05:36 by okamili           #+#    #+#             */
-/*   Updated: 2023/09/19 04:30:10 by nettalha         ###   ########.fr       */
+/*   Updated: 2023/09/20 04:04:55 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ static void	set_player_data(t_data *data, int row, int colm)
 {
 	if (data->player->x == -1 && data->player->y == -1)
 	{
-		data->player->x = colm + 0.15;
-		data->player->y = row + 0.15;
+		data->player->x = colm + 0.5;
+		data->player->y = row + 0.5;
 		data->player_ang = player_angle(data->map[row][colm]);
 		data->map[row][colm] = '0';
 		return ;

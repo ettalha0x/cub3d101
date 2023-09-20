@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:52:50 by okamili           #+#    #+#             */
-/*   Updated: 2023/09/20 00:46:47 by okamili          ###   ########.fr       */
+/*   Updated: 2023/09/20 04:02:38 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	draw_block(mlx_image_t *canvas, double point[2], long color)
 	}
 }
 
-void	draw_line(t_data *data, t_ray ray, float angle)
+void	draw_line(t_data *data, t_ray ray)
 {
 	float		step;
 	int			i;
@@ -46,7 +46,6 @@ void	draw_line(t_data *data, t_ray ray, float angle)
 
 	p1.x = data->player->x * BLOCK_SIZE;
 	p1.y = data->player->y * BLOCK_SIZE;
-	(void)angle;
 	p2.x = ray.x;
 	p2.y = ray.y;
 	d.x = p2.x - p1.x;
@@ -83,7 +82,7 @@ void	draw_vue_angle(t_data *data)
 		ray = get_shortest_ray(data, view_angle);
 		ray.distance = ray.distance
 			* cos((view_angle - data->player_ang) * (M_PI / 180));
-		draw_line(data, ray, view_angle);
+		draw_line(data, ray);
 		draw_3d_wall(data, ray, i);
 		view_angle += step;
 		view_angle = normalize_ang(view_angle);

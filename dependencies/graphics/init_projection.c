@@ -6,11 +6,19 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 22:06:13 by okamili           #+#    #+#             */
-/*   Updated: 2023/09/20 01:03:54 by okamili          ###   ########.fr       */
+/*   Updated: 2023/09/20 04:05:57 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "graphics.h"
+
+float	normalize_ang(float angle)
+{
+	angle = fmod(angle, 360);
+	if (angle < 0)
+		angle += 360;
+	return (angle);
+}
 
 static void	mouse_rotation(double xpos, double ypos, void *param)
 {

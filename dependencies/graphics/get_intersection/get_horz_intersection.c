@@ -6,7 +6,7 @@
 /*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:59:27 by nettalha          #+#    #+#             */
-/*   Updated: 2023/09/20 00:52:55 by okamili          ###   ########.fr       */
+/*   Updated: 2023/09/20 03:56:26 by okamili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,25 @@ t_ray	get_horz_intersection(t_data *data, double angle)
 	if (ray.is_facing_up)
 		ystep *= -1;
 	xstep = ystep / tan(angle * (M_PI / 180));
+	int grid_x, grid_y;
+	while (depth > 0 && ray.x >= 0 && ray.x < (data->map_w * BLOCK_SIZE)
+		&& ray.y >= 0 && ray.y < (data->map_h * BLOCK_SIZE))
 	{
-		int grid_x, grid_y;
-		while (depth > 0 && ray.x >= 0 && ray.x < (data->map_w * BLOCK_SIZE)
-			&& ray.y >= 0 && ray.y < (data->map_h * BLOCK_SIZE))
+		grid_x = floor(ray.x / BLOCK_SIZE);
+		grid_y = floor(ray.y / BLOCK_SIZE);
+		if (grid_y < 0 || grid_y >= data->map_h || grid_x < 0
+			|| grid_x >= (int)ft_strlen(data->map[grid_y]))
+			break ;
+		if (data->map[grid_y][grid_x] != '0')
+			break ;
+		else
 		{
-			grid_x = floor(ray.x / BLOCK_SIZE);
-			grid_y = floor(ray.y / BLOCK_SIZE);
-			if (grid_y < 0 || grid_y >= data->map_h || grid_x < 0 || grid_x >= (int)ft_strlen(data->map[grid_y]))
-				break;
-			if (data->map[grid_y][grid_x] != '0')
-				break;
-			else
-			{
-				ray.x += xstep;
-				ray.y += ystep;
-			}
-			depth--;
+			ray.x += xstep;
+			ray.y += ystep;
 		}
+		depth--;
 	}
-	ray.distance = sqrt(pow(ray.x - temp_player.x, 2) + pow(ray.y - temp_player.y, 2));
+	ray.distance = sqrt(pow(ray.x - temp_player.x, 2)
+			+ pow(ray.y - temp_player.y, 2));
 	return (ray);
 }
