@@ -6,7 +6,7 @@
 /*   By: nettalha <nettalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:52:55 by okamili           #+#    #+#             */
-/*   Updated: 2023/09/20 22:37:47 by nettalha         ###   ########.fr       */
+/*   Updated: 2023/09/20 22:59:22 by nettalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,11 @@ t_ray	get_shortest_ray(t_data *data, float angle);
  */
 t_ray	get_horz_intersection(t_data *data, double angle);
 /**
- * @brief compare both the horizontal and vertical distances
+ * @brief Compare the horizontal and vertical distances to find the shortest ray.
  * 
  * @param data Pointer to a t_data struct.
- * @param angle The Ray angle value.
+ * @param angle The angle of the ray.
  * @return t_ray The shortest ray.
-*/
+ */
 t_ray	get_vert_intersection(t_data *data, double angle);
 #endif

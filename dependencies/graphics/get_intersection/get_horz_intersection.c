@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_horz_intersection.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: nettalha <nettalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:59:27 by nettalha          #+#    #+#             */
-/*   Updated: 2023/09/20 06:21:15 by okamili          ###   ########.fr       */
+/*   Updated: 2023/09/20 23:00:19 by nettalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ t_ray	get_horz_intersection(t_data *data, double angle)
 	ray.is_facing_up = !ray.is_facing_down;
 	ray.is_facing_right = (angle < 90 || angle > 270);
 	ray.is_facing_left = !ray.is_facing_right;
-	depth = 10000;
+	depth = data->map_w * data->map_h;
 	if (angle == 0 || angle == 180 || angle == 360)
 		depth = 0;
 	ray.y = floor(temp_player.y / BLOCK_SIZE) * BLOCK_SIZE;
 	if (ray.is_facing_down)
 		ray.y += BLOCK_SIZE;
 	if (ray.is_facing_up)
-		ray.y -= 0.0001;
+		ray.y -= 0.001;
 	ray.x = temp_player.x + (ray.y - temp_player.y) / tan(angle * (M_PI / 180));
 	get_ray_distance(data, &ray, depth, angle);
 	ray.distance = sqrt(pow(ray.x - temp_player.x, 2)

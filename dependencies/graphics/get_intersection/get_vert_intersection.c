@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_vert_intersection.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okamili <okamili@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: nettalha <nettalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:59:38 by nettalha          #+#    #+#             */
-/*   Updated: 2023/09/20 06:23:18 by okamili          ###   ########.fr       */
+/*   Updated: 2023/09/20 23:00:11 by nettalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_ray	get_vert_intersection(t_data *data, double angle)
 	ray.is_facing_up = !ray.is_facing_down;
 	ray.is_facing_right = (angle < 90 || angle > 270);
 	ray.is_facing_left = !ray.is_facing_right;
-	depth = 10000;
+	depth = data->map_w * data->map_h;
 	if (angle == 90 || angle == 270)
 		depth = 0;
 	temp_player.x = data->player->x * BLOCK_SIZE;
@@ -60,7 +60,7 @@ t_ray	get_vert_intersection(t_data *data, double angle)
 	if (ray.is_facing_right)
 		ray.x += BLOCK_SIZE;
 	if (ray.is_facing_left)
-		ray.x -= 0.0001;
+		ray.x -= 0.001;
 	ray.y = temp_player.y + (ray.x - temp_player.x) * tan(angle * (M_PI / 180));
 	get_ray_distance(data, &ray, depth, angle);
 	ray.distance = sqrt(pow(ray.x - temp_player.x, 2)
